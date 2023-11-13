@@ -48,25 +48,46 @@ const pizzaData = [
 
 
 export default function App() {
-  
   return (
     <>
-      <h1>Tala's pizza menu</h1>
+      <Header />
+      <Menu />
+      <Footer />
+    </>
+  );
+}
+
+function Header(){
+return(
+  <h1>React Pizza Restaurant</h1>
+  )
+}
+
+function Menu(){
+  return(
+    <>
+      <h2>Our Menu</h2>
+      <Pizza />
       <Pizza />
       <Pizza />
       <Pizza />
     </>
-  );
+  )
+}
+
+function Footer(){
+return(
+  <footer>{new Date().toLocaleTimeString()} We're currently open</footer>
+  )
 }
 
 export function Pizza(){
   return(
     <>
-    <img src="pizzas/spinach.jpg" alt="Spinach pizza" />
-    <h2>Spinach Pizza </h2>
-    <p>Tomato, mozzarella, spinach, and ricotta cheese</p>
-  </>
-  
+      <img src="pizzas/spinach.jpg" alt="Spinach pizza" />
+      <h2>Spinach Pizza </h2>
+      <p>Tomato, mozzarella, spinach, and ricotta cheese</p>
+    </>
   )
 }
 
