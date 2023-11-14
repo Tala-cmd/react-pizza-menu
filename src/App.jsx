@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
+import { useState, useEffect } from "react";
 
 const pizzaData = [
   {
@@ -46,50 +48,89 @@ const pizzaData = [
   },
 ];
 
-
 export default function App() {
   return (
-    <>
-      <Header />
-      <Menu />
-      <Footer />
-    </>
+    <div className="container">
+        <Header />
+        <Menu />
+        <Footer />
+    </div>
   );
 }
 
-function Header(){
-return(
-  <h1>React Pizza Restaurant</h1>
-  )
+function Menu() {
+  return (
+    <main className="menu">
+        <h2>Our Menu</h2>
+        <Pizza
+          name="Spinach Pizza"
+          ingredients="Tomato, mozzarella, spinach, and ricotta cheese"
+          photoName="pizzas/spinach.jpg"
+          price={10}
+        />
+
+        <Pizza
+          name="Funghi Pizza"
+          ingredients="Tomato, mushrooms"
+          price={12}
+          photoName="pizzas/funghi.jpg"
+        />
+    </main>
+  );
 }
 
-function Menu(){
-  return(
-    <>
-      <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </>
-  )
+export function Pizza(props) {
+  console.log(props);
+  return (
+    <div className="pizza">
+        <img src={props.photoName} alt={props.name} />
+        <div>
+          <h3>{props.name}</h3>
+          <p>{props.ingredients}</p>
+          <span>{props.price}</span>
+        </div>
+    </div>
+  );
 }
 
-function Footer(){
-return(
-  <footer>{new Date().toLocaleTimeString()} We're currently open</footer>
-  )
+function Header() {
+  // const style = {color: 'red', fontSize: '32px', textTransform: 'uppercase'}
+  const style = {};
+  return (
+    <header className="header">
+        <h1 style={style} className="header">
+          React Pizza Restaurant
+        </h1>
+    </header>
+  );
 }
 
-export function Pizza(){
-  return(
-    <>
-      <img src="pizzas/spinach.jpg" alt="Spinach pizza" />
-      <h2>Spinach Pizza </h2>
-      <p>Tomato, mozzarella, spinach, and ricotta cheese</p>
-    </>
-  )
+function Footer() {
+  const [isOpen, setIsOpen] = useState("");
+
+  useEffect(() => {
+    const updateIsOpen = () => {
+        const hour = new Date().getHours();
+        const openHour = 12; //opens at 12 morning
+        const closeHour = 21; //closes at 10 night
+        console.log(hour);
+
+        if (hour >= openHour && hour <= closeHour) {
+          setIsOpen("open");
+        } else {
+          setIsOpen("closed");
+        }
+    };
+
+    updateIsOpen(); // Call the function once when the component mounts
+
+    // Optionally, you can clear any timers or subscriptions in the cleanup function
+  }, []); // Empty dependency array ensures the effect runs only once
+
+  return (
+    <footer className="footer">
+        <h1>The restaurant is now {isOpen}</h1>
+        <footer>{new Date().toLocaleTimeString()} </footer>
+    </footer>
+  );
 }
-
-
-
