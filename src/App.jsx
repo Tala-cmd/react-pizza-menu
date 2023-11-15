@@ -22,7 +22,7 @@ const pizzaData = [
     name: "Spinach Pizza",
     ingredients: "Tomato, mozzarella, spinach, and ricotta cheese",
     price: 12,
-    photoName: "pizzas/spinaci.jpg",
+    photoName: "pizzas/spinach.jpg",
     soldOut: false,
   },
   {
@@ -62,7 +62,13 @@ function Menu() {
   return (
     <main className="menu">
         <h2>Our Menu</h2>
-        <Pizza
+
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+          <Pizza pizzaObject={pizza} key={pizza.name} />))}
+        </ul>
+
+        {/* <Pizza
           name="Spinach Pizza"
           ingredients="Tomato, mozzarella, spinach, and ricotta cheese"
           photoName="pizzas/spinach.jpg"
@@ -74,7 +80,7 @@ function Menu() {
           ingredients="Tomato, mushrooms"
           price={12}
           photoName="pizzas/funghi.jpg"
-        />
+        /> */}
     </main>
   );
 }
@@ -82,14 +88,14 @@ function Menu() {
 export function Pizza(props) {
   console.log(props);
   return (
-    <div className="pizza">
-        <img src={props.photoName} alt={props.name} />
+    <li className="pizza">
+        <img src={props.pizzaObject.photoName} alt={props.pizzaObject.name} />
         <div>
-          <h3>{props.name}</h3>
-          <p>{props.ingredients}</p>
-          <span>{props.price}</span>
+          <h3>{props.pizzaObject.name}</h3>
+          <p>{props.pizzaObject.ingredients}</p>
+          <span>{props.pizzaObject.price}</span>
         </div>
-    </div>
+    </li>
   );
 }
 
@@ -129,7 +135,7 @@ function Footer() {
 
   return (
     <footer className="footer">
-        <h1>The restaurant is now {isOpen}</h1>
+        <h1>The restaurant is currently {isOpen}</h1>
         <footer>{new Date().toLocaleTimeString()} </footer>
     </footer>
   );
