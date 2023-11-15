@@ -59,28 +59,20 @@ export default function App() {
 }
 
 function Menu() {
+  //const pizzas= pizzaData;
+const pizzas=[];
+  const numberOfPizzas = pizzas.length
+
   return (
     <main className="menu">
-        <h2>Our Menu</h2>
+      <h2>Our Menu</h2>
 
+      {numberOfPizzas > 0 && 
         <ul className="pizzas">
           {pizzaData.map((pizza) => (
           <Pizza pizzaObject={pizza} key={pizza.name} />))}
-        </ul>
-
-        {/* <Pizza
-          name="Spinach Pizza"
-          ingredients="Tomato, mozzarella, spinach, and ricotta cheese"
-          photoName="pizzas/spinach.jpg"
-          price={10}
-        />
-
-        <Pizza
-          name="Funghi Pizza"
-          ingredients="Tomato, mushrooms"
-          price={12}
-          photoName="pizzas/funghi.jpg"
-        /> */}
+        </ul> 
+      }
     </main>
   );
 }
@@ -112,31 +104,18 @@ function Header() {
 }
 
 function Footer() {
-  const [isOpen, setIsOpen] = useState("");
-
-  useEffect(() => {
-    const updateIsOpen = () => {
-        const hour = new Date().getHours();
-        const openHour = 12; //opens at 12 morning
-        const closeHour = 21; //closes at 10 night
-        console.log(hour);
-
-        if (hour >= openHour && hour <= closeHour) {
-          setIsOpen("open");
-        } else {
-          setIsOpen("closed");
-        }
-    };
-
-    updateIsOpen(); // Call the function once when the component mounts
-
-    // Optionally, you can clear any timers or subscriptions in the cleanup function
-  }, []); // Empty dependency array ensures the effect runs only once
+  const hour = new Date().getHours();
+  const time = new Date().toLocaleTimeString()
+  const openHour = 12; //opens at 12 morning
+  const closeHour = 21; //closes at 10 night
+  const isOpen = hour >= openHour && hour <= closeHour;
 
   return (
     <footer className="footer">
-        <h1>The restaurant is currently {isOpen}</h1>
-        <footer>{new Date().toLocaleTimeString()} </footer>
+      <div className="order">
+        {!isOpen && <p>We're open until {closeHour}:00. Come visit us or order online.</p>}
+        <button className="btn">Order</button>
+      </div>
     </footer>
   );
 }
